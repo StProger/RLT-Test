@@ -12,13 +12,24 @@ router = Router()
 @router.message()
 async def aggregation_handler(message: types.Message):
 
-    text = """Невалидный запрос. Пример запроса:
-{"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}"""
+
     try:
+
+        text = """Невалидный запрос. Пример запроса:
+{"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}"""
+
         data = ast.literal_eval(message.text.replace("\n", ""))
+
     except ValueError:
+
+        text = """Допустимо отправлять только следующие запросы:
+{"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}
+{"dt_from": "2022-10-01T00:00:00", "dt_upto": "2022-11-30T23:59:00", "group_type": "day"}
+{"dt_from": "2022-02-01T00:00:00", "dt_upto": "2022-02-02T00:00:00", "group_type": "hour"}"""
+
         await message.answer(text)
         return
+
     if data not in settings.valid_data:
         await message.answer(text)
     else:
