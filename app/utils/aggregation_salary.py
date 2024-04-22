@@ -31,7 +31,6 @@ async def aggregation_salary(data):
         for item in items_df.itertuples():
 
             item: SalaryModel
-            print(item)
             if last_hour is None:
                 last_hour = item.dt.hour
                 last_dt = item.dt
