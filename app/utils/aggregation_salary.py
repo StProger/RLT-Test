@@ -74,14 +74,14 @@ async def aggregation_salary(data):
                     label = pd.to_datetime(last_dt)
                     output_data["dataset"].append(sum_salary)
                     output_data["labels"].append(
-                        (label.replace(minute=0, second=0, microsecond=0).strftime("%Y-%m-%dT%H:%M:%S")))
+                        (label.replace(day=1, minute=0, second=0, microsecond=0).strftime("%Y-%m-%dT%H:%M:%S")))
                     sum_salary = item.value
                     last_month = item.dt.month
                     last_dt = item.dt
         label = pd.to_datetime(last_dt)
         output_data["dataset"].append(sum_salary)
         output_data["labels"].append(
-            label.replace(minute=0, second=0, microsecond=0).strftime("%Y-%m-%dT%H:%M:%S"))
+            label.replace(day=1, minute=0, second=0, microsecond=0).strftime("%Y-%m-%dT%H:%M:%S"))
 
     elif group_type == "day":
 
