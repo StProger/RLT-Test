@@ -18,7 +18,7 @@ async def aggregation_handler(message: types.Message):
         data = ast.literal_eval(message.text.replace("\n", ""))
 
     except ValueError:
-
+        print(f"Ошибка ввода: {message.text.replace('\n', '')}")
         text = """Невалидный запрос. Пример запроса:
 {"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}"""
 
@@ -26,7 +26,7 @@ async def aggregation_handler(message: types.Message):
         return
 
     if data not in settings.valid_data:
-
+        print(f"Неправильный запрос: {message.text.replace('\n', '')}")
         text = """Допустимо отправлять только следующие запросы:
 {"dt_from": "2022-09-01T00:00:00", "dt_upto": "2022-12-31T23:59:00", "group_type": "month"}
 {"dt_from": "2022-10-01T00:00:00", "dt_upto": "2022-11-30T23:59:00", "group_type": "day"}
@@ -35,4 +35,5 @@ async def aggregation_handler(message: types.Message):
         await message.answer(text)
     else:
         output_data = await aggregation_salary(data=data)
+        print(str(output_data).replace("'", "\""))
         await message.answer(str(output_data).replace("'", "\""))
