@@ -35,4 +35,4 @@ async def aggregation_handler(message: types.Message):
         await message.answer(text)
     else:
         output_data = await aggregation_salary(data=data)
-        await message.answer(str(output_data))
+        await message.answer(str(output_data).replace("'", "\""))
